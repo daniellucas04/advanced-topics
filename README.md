@@ -54,4 +54,6 @@ DB_USERNAME=
 DB_PASSWORD=
 ```
 
+Utilize o arquivo `database.sql` para criar a tabela no banco de dados e populá-la com os dados de exemplo
+
 Com o .env definido basta utilizar o comando `php -S localhost:80` para iniciar o servidor e acessar a página web
