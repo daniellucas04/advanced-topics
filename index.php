@@ -33,6 +33,13 @@ $customers = $connection->listCustomers();
         h1 {
             text-align: center;
         }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Cor para linhas pares */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff; /* Cor para linhas ímpares */
+        }
     </style>
     <title>Lista de clientes</title>
 </head>
@@ -44,7 +51,6 @@ $customers = $connection->listCustomers();
                 <th>Nome</th>
                 <th>Endereço</th>
                 <th>Cidade</th>
-                <th>Estado</th>
                 <th>Telefone</th>
             </tr>
         </thead>
@@ -55,7 +61,6 @@ $customers = $connection->listCustomers();
                     <td><?=  htmlspecialchars($customer['name']); ?></td>
                     <td><?=  htmlspecialchars($customer['address']); ?></td>
                     <td><?=  htmlspecialchars($customer['city']); ?></td>
-                    <td><?=  htmlspecialchars($customer['state']); ?></td>
                     <td><?=  htmlspecialchars($customer['phone']); ?></td>
                 </tr>
             <?php } ?>
