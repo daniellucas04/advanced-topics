@@ -39,6 +39,7 @@ RUN composer install --no-interaction --no-dev --working-dir=/var/www/html
 
 # Definindo permissões para o Apache acessar os arquivos clonados
 RUN chown -R www-data:www-data /var/www/html
+RUN echo 'variables_order = "EGPCS"' >> /etc/php/8.2/apache2/php.ini
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
