@@ -1,3 +1,6 @@
+create database if not exists topics;
+use topics;
+
 create table customers (
     id int not null primary KEY,
     name varchar(100),

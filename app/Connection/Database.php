@@ -19,7 +19,7 @@ class Database {
         $this->password = $_ENV['DB_PASSWORD'];
 
         try {
-            $this->conn = new PDO("sqlsrv:server = $this->host; Database = $this->dbName; TrustServerCertificate = false", $this->username, $this->password);
+            $this->conn = new PDO("mysql:host={$this->host};dbname={$this->dbName};", $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
