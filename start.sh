@@ -18,6 +18,11 @@ else
     echo "Arquivo database.sql não encontrado."
 fi
 
+echo "DB_HOST=${DB_HOST}" > /var/www/html/.env
+echo "DB_NAME=${DB_NAME}" >> /var/www/html/.env
+echo "DB_USERNAME=${DB_USERNAME}" >> /var/www/html/.env
+echo "DB_PASSWORD=${DB_PASSWORD}" >> /var/www/html/.env
+
 # Inicia o Apache
 service apache2 start
 
