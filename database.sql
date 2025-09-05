@@ -40,3 +40,7 @@ INSERT INTO customers (id, name, address, city, phone) VALUES
 (28, 'Marcelo Andrade', 'Rua Nova, 202', 'Macapá', '(96) 95555-2323'),
 (29, 'Sandra Oliveira', 'Av. Central, 400', 'Rio Branco', '(68) 96666-7878'),
 (30, 'Thiago Moreira', 'Rua Quatro, 7', 'Palmas', '(63) 94444-6767');
+
+CREATE USER 'topics'@'localhost' IDENTIFIED BY 'semsenha';
+GRANT ALL PRIVILEGES ON *.* TO 'topics'@'localhost';
+FLUSH PRIVILEGES;

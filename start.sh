@@ -18,10 +18,6 @@ else
     echo "Arquivo database.sql não encontrado."
 fi
 
-mysql -u root -e "CREATE USER 'topics'@'localhost' IDENTIFIED BY 'semsenha';"
-mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'topics'@'localhost';"
-mysql -u root -e "FLUSH PRIVILEGES;"
-
 echo "DB_HOST=${DB_HOST}" > /var/www/html/.env
 echo "DB_NAME=${DB_NAME}" >> /var/www/html/.env
 echo "DB_USERNAME=${DB_USERNAME}" >> /var/www/html/.env
