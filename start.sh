@@ -3,27 +3,38 @@
 # Inicia o MySQL
 service mysql start
 
-# Aguarda o MySQL subir (ajuste se necessário)
-echo "Aguardando MySQL subir..."
-sleep 5
+# Aguarda o MySQL estar pronto
+until mysqladmin ping --silent; do
+  echo "Esperando MySQL iniciar..."
+  sleep 1
+done
 
-# Cria o banco de dados (se não existir)
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS topics;"
+# Cria o banco de dados
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
 
-# Importa o arquivo SQL
+# Cria o usuário e permissões
+mysql -u root -e "CREATE USER IF NOT EXISTS '${DB_USERNAME}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USERNAME}'@'localhost';"
+mysql -u root -e "FLUSH PRIVILEGES;"
+
+# Importa o SQL, se existir
 if [ -f /var/www/html/database.sql ]; then
-    echo "Importando database.sql..."
-    mysql -u root topics < /var/www/html/database.sql
+  echo "Importando database.sql..."
+  mysql -u root ${DB_NAME} < /var/www/html/database.sql
 else
-    echo "Arquivo database.sql não encontrado."
+  echo "Arquivo database.sql não encontrado."
 fi
 
-echo "DB_HOST=${DB_HOST}" > /var/www/html/.env
-echo "DB_NAME=${DB_NAME}" >> /var/www/html/.env
-echo "DB_USERNAME=${DB_USERNAME}" >> /var/www/html/.env
-echo "DB_PASSWORD=${DB_PASSWORD}" >> /var/www/html/.env
+# Escreve o arquivo .env
+cat <<EOF > /var/www/html/.env
+DB_HOST=localhost
+DB_NAME=${DB_NAME}
+DB_USERNAME=${DB_USERNAME}
+DB_PASSWORD=${DB_PASSWORD}
+EOF
 
 # Inicia o Apache
 service apache2 start
 
+# Log
 tail -f /var/log/apache2/access.log
