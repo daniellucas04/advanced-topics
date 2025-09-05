@@ -44,5 +44,7 @@ RUN echo 'variables_order = "EGPCS"' >> /etc/php/8.2/apache2/php.ini
 RUN chmod +x /var/www/html/start.sh
 CMD ["/var/www/html/start.sh"]
 
+VOLUME /var/lib/mysql
+
 # (Apache) e (MySQL)
 EXPOSE 80 3306
