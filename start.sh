@@ -13,8 +13,8 @@ done
 mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
 
 # Cria o usuário e permissões
-mysql -u root -e "CREATE USER IF NOT EXISTS '${DB_USERNAME}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
-mysql -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USERNAME}'@'localhost';"
+mysql -u root -e "CREATE USER IF NOT EXISTS '${DB_USERNAME}'@'${DB_HOST}' IDENTIFIED BY '${DB_PASSWORD}';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USERNAME}'@'${DB_HOST}';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 
 # Importa o SQL, se existir
@@ -27,7 +27,7 @@ fi
 
 # Escreve o arquivo .env
 cat <<EOF > /var/www/html/.env
-DB_HOST=localhost
+DB_HOST=${DB_HOST}
 DB_NAME=${DB_NAME}
 DB_USERNAME=${DB_USERNAME}
 DB_PASSWORD=${DB_PASSWORD}
