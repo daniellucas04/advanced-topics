@@ -2,7 +2,6 @@
 
 # Corrige permissões
 chown -R mysql:mysql /var/lib/mysql
-rm -rf /var/lib/mysql/*
 
 echo "Inicializando banco de dados no volume..."
 mysqld --initialize --user=mysql --datadir=/var/lib/mysql
