@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+  echo "Inicializando banco de dados no volume..."
+  mysqld --initialize-insecure
+fi
+
 # Inicia o MySQL
 service mysql start
 
