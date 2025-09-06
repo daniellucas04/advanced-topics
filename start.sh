@@ -2,10 +2,11 @@
 
 # Corrige permissões
 chown -R mysql:mysql /var/lib/mysql
+rm -rf /var/lib/mysql/*
 
 if [ ! -d "/var/lib/mysql" ]; then
   echo "Inicializando banco de dados no volume..."
-  mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql
+  mysqld --initialize --user=mysql --datadir=/var/lib/mysql
 fi
 
 # Inicia o MySQL
