@@ -5,7 +5,7 @@ chown -R mysql:mysql /var/lib/mysql
 
 if [ ! -d "/var/lib/mysql" ]; then
   echo "Inicializando banco de dados no volume..."
-  mysqld --initialize-insecure
+  mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql
 fi
 
 # Inicia o MySQL
