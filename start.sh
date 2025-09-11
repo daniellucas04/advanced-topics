@@ -3,8 +3,10 @@
 # Corrige permissões
 chown -R mysql:mysql /var/lib/mysql
 
-echo "Iniciando serviço do MariaDB..."
-service mariadb start
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+    echo "Inicializando banco de dados MariaDB..."
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
+fi
 
 # Aguarda o MariaDB estar pronto
 until mysqladmin ping --silent; do
