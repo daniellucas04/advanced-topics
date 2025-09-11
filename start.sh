@@ -6,6 +6,7 @@ chown -R mysql:mysql /var/lib/mysql
 if [ ! -d "/var/lib/mysql/mysql" ]; then
     echo "Inicializando banco de dados MariaDB..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
+    service mariadb start
 fi
 
 # Aguarda o MariaDB estar pronto
