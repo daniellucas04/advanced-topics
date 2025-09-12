@@ -1,3 +1,6 @@
+SET NAMES 'utf8mb4';
+SET CHARACTER SET utf8mb4;
+
 create table customers (
     id int not null primary KEY,
     name varchar(100),
