@@ -57,3 +57,13 @@ DB_PASSWORD=
 Utilize o arquivo `database.sql` para criar a tabela no banco de dados e populá-la com os dados de exemplo
 
 Com o .env definido basta utilizar o comando `php -S localhost:80` para iniciar o servidor e acessar a página web
+
+### Utilizando Docker
+
+A imagem completa está localizada no Docker Hub [daniellucas04/advanced-topics:latest](https://hub.docker.com/r/daniellucas04/advanced-topics)
+
+Para subir um container com essa aplicação basta utilizar o comando abaixo, substituindo os valores **example** com as credenciais que desejar.
+
+```bash
+docker run -d -e DB_HOST={example} -e DB_NAME={example} -e DB_USERNAME={example} -e DB_PASSWORD={example} -p 80:80 -p 3306:3306 -v /c/database/mysql_data:/var/lib/mysql daniellucas04/advanced-topics:latest
+```
