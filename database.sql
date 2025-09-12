@@ -1,4 +1,4 @@
-create database if not exists topics CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;;
+create database if not exists topics CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 use topics;
 
 create table customers (
