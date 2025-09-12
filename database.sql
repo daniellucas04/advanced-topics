@@ -4,7 +4,7 @@ create table customers (
     address varchar(100),
     city varchar(100),
     phone varchar(100)
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 INSERT INTO customers (id, name, address, city, phone) VALUES
 (1, 'Ana Souza', 'Rua das Flores, 123', 'São Paulo', '(11) 91234-5678'),
