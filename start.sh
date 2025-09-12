@@ -20,7 +20,7 @@ done
 
 # Cria o banco de dados se não existir
 echo "Criando banco de dados '${DB_NAME}'..."
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\`;"
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
 # Cria o usuário e define permissões
 echo "Criando usuário '${DB_USERNAME}' com acesso a '${DB_NAME}'..."
