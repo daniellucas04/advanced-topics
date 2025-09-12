@@ -60,7 +60,7 @@ Com o .env definido basta utilizar o comando `php -S localhost:80` para iniciar 
 
 ### Utilizando Docker
 
-A imagem completa está localizada no Docker Hub [daniellucas04/advanced-topics:latest](https://hub.docker.com/r/daniellucas04/advanced-topics)
+A imagem completa está localizada no Docker Hub [daniellucas04/advanced-topics](https://hub.docker.com/r/daniellucas04/advanced-topics)
 
 Para subir um container com essa aplicação basta utilizar o comando abaixo, substituindo os valores **example** com as credenciais que desejar.
 
