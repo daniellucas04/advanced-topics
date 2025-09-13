@@ -21,4 +21,7 @@ RUN composer install --no-dev --no-interaction
 # Instala dependências do PHP
 RUN composer install --no-interaction --no-dev --working-dir=/var/www/html
 
+RUN chmod +x /var/www/html/start.sh
+CMD ["/var/www/html/start.sh"]
+
 EXPOSE 80
