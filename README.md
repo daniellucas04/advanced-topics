@@ -67,3 +67,36 @@ Para subir um container com essa aplicação basta utilizar o comando abaixo, su
 ```bash
 docker run -d -e DB_HOST={example} -e DB_NAME={example} -e DB_USERNAME={example} -e DB_PASSWORD={example} -p 80:80 -p 3306:3306 -v /c/database/mysql_data:/var/lib/mysql daniellucas04/advanced-topics:latest
 ```
+
+### Utilizando Docker Compose
+
+Para subir a aplicação e um gerenciador de banco de dados (phpmyadmin), basta subir os três contêineres do arquivo `docker-compose.yml`
+
+```bash
+docker-compose up
+```
+
+Por padrão dentro do `docker-compose.yml` estão definidos as credenciais do banco de dados sendo elas:
+
+Banco de dados:
+
+- MARIADB_USER=root
+- MARIADB_PASSWORD=
+- MARIADB_DATABASE=topics
+- MARIADB_ROOT_PASSWORD=
+- MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=1
+
+Aplicação:
+
+- DB_HOST=db
+- DB_USERNAME=root
+- DB_PASSWORD=
+- DB_NAME=topics
+
+PhpMyAdmin:
+
+- PMA_HOST=db
+
+Por fim, a aplicação estará rodando na porta **80**, banco de dados na porta **3306** e phpmyadmin na porta **8080**
+
+> As credenciais para login no PhpMyAdmin serão as mesmas credenciais do banco de dados
