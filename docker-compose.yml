@@ -19,6 +19,7 @@ services:
     build: .
     ports:
       - 80:80
+      - 443:443
     environment:
       - DB_HOST=db
       - DB_USERNAME=root
