@@ -1,0 +1,42 @@
+create database if not exists topics;
+use topics;
+
+create table customers (
+    id int not null primary KEY,
+    name varchar(100),
+    address varchar(100),
+    city varchar(100),
+    phone varchar(100)
+);
+
+INSERT INTO customers (id, name, address, city, phone) VALUES
+(1, 'Ana Souza', 'Rua das Flores, 123', 'São Paulo', '(11) 91234-5678'),
+(2, 'Carlos Lima', 'Av. Paulista, 456', 'São Paulo', '(11) 99876-5432'),
+(3, 'Beatriz Alves', 'Rua dos Lírios, 89', 'Rio de Janeiro', '(21) 93456-7890'),
+(4, 'Fernando Rocha', 'Rua 7 de Setembro, 300', 'Belo Horizonte', '(31) 97654-3210'),
+(5, 'Juliana Martins', 'Av. Brasil, 1010', 'Curitiba', '(41) 98877-6655'),
+(6, 'Lucas Pereira', 'Rua das Palmeiras, 55', 'Porto Alegre', '(51) 91234-1234'),
+(7, 'Camila Dias', 'Rua Dom Pedro, 77', 'Fortaleza', '(85) 97654-7890'),
+(8, 'Rafael Costa', 'Av. Independência, 800', 'Recife', '(81) 92345-1111'),
+(9, 'Patrícia Mendes', 'Rua das Acácias, 12', 'Brasília', '(61) 98765-4321'),
+(10, 'Rodrigo Silva', 'Av. Goiás, 333', 'Goiânia', '(62) 99888-7777'),
+(11, 'Larissa Castro', 'Rua Santo Antônio, 44', 'Belém', '(91) 94444-2222'),
+(12, 'Vinícius Nogueira', 'Rua Central, 70', 'Florianópolis', '(48) 96666-1111'),
+(13, 'Isabela Ribeiro', 'Av. do Contorno, 500', 'Belo Horizonte', '(31) 95555-9999'),
+(14, 'Pedro Henrique', 'Rua dos Andradas, 222', 'Porto Alegre', '(51) 98765-3333'),
+(15, 'Tatiane Barros', 'Rua Vitória, 11', 'Salvador', '(71) 93333-7777'),
+(16, 'Gustavo Almeida', 'Rua das Gaivotas, 66', 'Natal', '(84) 98888-5555'),
+(17, 'Aline Fernandes', 'Av. Amazonas, 420', 'Manaus', '(92) 94444-8888'),
+(18, 'Bruno Teixeira', 'Rua do Comércio, 35', 'João Pessoa', '(83) 91111-2222'),
+(19, 'Marina Lopes', 'Rua Bela Vista, 199', 'Vitória', '(27) 98888-6666'),
+(20, 'Eduardo Freitas', 'Rua Três, 17', 'Campo Grande', '(67) 97777-1111'),
+(21, 'Nathalia Gomes', 'Av. das Nações, 88', 'Cuiabá', '(65) 93333-4444'),
+(22, 'Henrique Santos', 'Rua do Sol, 91', 'Aracaju', '(79) 91212-3434'),
+(23, 'Carolina Farias', 'Av. Atlântica, 60', 'Rio de Janeiro', '(21) 93456-7891'),
+(24, 'Diego Ramos', 'Rua da Liberdade, 150', 'São Luís', '(98) 94444-9999'),
+(25, 'Renata Souza', 'Rua da Paz, 80', 'Teresina', '(86) 98888-1212'),
+(26, 'João Vitor', 'Av. dos Expedicionários, 300', 'Maceió', '(82) 97777-4545'),
+(27, 'Paula Lima', 'Rua Boa Vista, 13', 'Porto Velho', '(69) 91234-0000'),
+(28, 'Marcelo Andrade', 'Rua Nova, 202', 'Macapá', '(96) 95555-2323'),
+(29, 'Sandra Oliveira', 'Av. Central, 400', 'Rio Branco', '(68) 96666-7878'),
+(30, 'Thiago Moreira', 'Rua Quatro, 7', 'Palmas', '(63) 94444-6767');
