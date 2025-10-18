@@ -20,8 +20,7 @@ RUN apt-get update && apt-get install -y \
     lsb-release \
     curl \
     gnupg \
-    unzip \
-    git
+    unzip
 
 # Adiciona repositório PHP 8.2
 RUN add-apt-repository ppa:ondrej/php -y && apt-get update
