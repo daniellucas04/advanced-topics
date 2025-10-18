@@ -16,7 +16,7 @@ services:
       - app_network
 
   app:
-    build: .
+    build: Dockerfile-compose
     ports:
       - 80:80
       - 443:443
