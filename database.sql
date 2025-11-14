@@ -5,7 +5,7 @@ create database if not exists topics;
 use topics;
 
 create table if not exists customers (
-    id int not null primary KEY,
+    id int not null primary KEY AUTO_INCREMENT,
     name varchar(100),
     address varchar(100),
     city varchar(100),
