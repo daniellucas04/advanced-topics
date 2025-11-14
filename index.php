@@ -14,43 +14,49 @@ $connection = new Database();
 $customers = $connection->listCustomers();
 
 $msg = null;
-if ($uri == '/create' && $method === 'POST') {
-    $data = filter_input_array(INPUT_POST);
-    $result = $connection->insertCustomer($data);
+if ($method === 'POST') {
 
-    if ($result) {
-        header('Location: /');
-        exit();
+    $action = $_POST['action'] ?? null;
+    if ($action === 'create') {
+        $data = filter_input_array(INPUT_POST);
+        $result = $connection->insertCustomer($data);
+
+        if ($result) {
+            $msg = "Cliente criado com sucesso!";
+        } else {
+            $msg = "Erro ao criar cliente.";
+        }
     }
 
-    $msg = 'Não foi possível salvar o novo cliente';
-}
+    if ($action === 'update') {
+        $customerId = $_POST['id'];
+        $data = filter_input_array(INPUT_POST);
+        $result = $connection->updateCustomer($data, $customerId);
 
-if (str_contains($uri, 'edit') && $method === 'POST') {
-    $customerId = explode('/', $uri)[2];
-    $data = filter_input_array(INPUT_POST);
-    $result = $connection->updateCustomer($data, $customerId);
-
-    if ($result) {
-        header('Location: /');
-        exit();
+        if ($result) {
+            $msg = "Cliente atualizado com sucesso!";
+        } else {
+            $msg = "Erro ao atualizar cliente.";
+        }
     }
 
-    $msg = 'Não foi possível atualizar o cliente';
-}
+    if ($action === 'delete') {
+        $customerId = $_POST['id'];
+        $result = $connection->deleteCustomer($customerId);
 
-if (str_contains($uri, 'remove') && $method === 'POST') {
-    $customerId = explode('/', $uri)[2];
-    $result = $connection->deleteCustomer($customerId);
-
-    if ($result) {
-        header('Location: /');
-        exit();
+        if ($result) {
+            $msg = "Cliente removido com sucesso!";
+        } else {
+            $msg = "Erro ao remover cliente.";
+        }
     }
 
-    $msg = 'Não foi possível remover o cliente';
+    if ($action === 'load-edit') {
+        $customerToEdit = $connection->getById($_POST['id']);
+    }
 }
 
+$customers = $connection->listCustomers();
 ?>
 
 <!DOCTYPE html>
@@ -102,8 +108,6 @@ if (str_contains($uri, 'remove') && $method === 'POST') {
         tr:nth-child(odd) {
             background-color: #ffffff; /* Cor para linhas ímpares */
         }
-
-        /* Form */
         .form-wrapper {
             display: flex;
             align-items: center;
@@ -175,109 +179,79 @@ if (str_contains($uri, 'remove') && $method === 'POST') {
     <title>Lista de clientes</title>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="/" class="btn-nav">Dashboard</a>
-            </li>
-            <li>
-                <a href="/create" class="btn-nav">Novo registro</a>
-            </li>
-        </ul>
-    </nav>
-    <?php if ($uri == '/' && $method == 'GET') { ?>
-        <?php if ($msg) { ?>
-            <span><?= $msg ?></span>
-        <?php } ?>
-        <table style="border:1px solid black">
-            <thead>
+    <?php if ($msg) { ?>
+        <span><?= $msg ?></span>
+    <?php } ?>
+
+    <div class="form-wrapper">
+        <div class="form-wrapper">
+            <form method="post" class="form">
+                <?php 
+                    if (isset($customerToEdit) && $customerToEdit != null) {
+                        echo '<input type="hidden" name="action" value="update">';
+                        echo '<input type="hidden" name="id" value="' . $customerToEdit->id . '">';
+                    } else {
+                        echo '<input type="hidden" name="action" value="create">';
+                    }
+                ?>
+                <div>
+                    <label for="">Nome</label>
+                    <input name="name" value="<?= $customerToEdit->name ?? '' ?>"></input>
+                </div>
+                <div>
+                    <label for="">Endereço</label>
+                    <input name="address" value="<?= $customerToEdit->address ?? '' ?>"></input>
+                </div>
+                <div>
+                    <label for="">Cidade</label>
+                    <input name="city" value="<?= $customerToEdit->city ?? '' ?>"></input>
+                </div>
+                <div>
+                    <label for="">Telefone</label>
+                    <input name="phone" value="<?= $customerToEdit->phone ?? '' ?>"></input>
+                </div>
+                <div></div>
+                <div class="btn-submit-wrapper">
+                    <button type="submit" class="btn-submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table style="border:1px solid black">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Telefone</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($customers as $customer) { ?>
                 <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Endereço</th>
-                    <th>Cidade</th>
-                    <th>Telefone</th>
-                    <th>Ação</th>
+                    <td><?=  htmlspecialchars($customer['id']); ?></td>
+                    <td><?=  htmlspecialchars($customer['name']); ?></td>
+                    <td><?=  htmlspecialchars($customer['address']); ?></td>
+                    <td><?=  htmlspecialchars($customer['city']); ?></td>
+                    <td><?=  htmlspecialchars($customer['phone']); ?></td>
+                    <td class="form-actions">
+                        <form method="post">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="id" value="<?= $customer['id'] ?>">
+                            <button type="submit" class="btn-remove">X</button>
+                        </form>
+                        <form method="post">
+                            <input type="hidden" name="action" value="load-edit">
+                            <input type="hidden" name="id" value="<?= $customer['id'] ?>">
+                            <button type="submit" class="btn-edit">Editar</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach($customers as $customer) { ?>
-                    <tr>
-                        <td><?=  htmlspecialchars($customer['id']); ?></td>
-                        <td><?=  htmlspecialchars($customer['name']); ?></td>
-                        <td><?=  htmlspecialchars($customer['address']); ?></td>
-                        <td><?=  htmlspecialchars($customer['city']); ?></td>
-                        <td><?=  htmlspecialchars($customer['phone']); ?></td>
-                        <td class="form-actions">
-                            <form action="/remove/<?= $customer['id'] ?>" method="post">
-                                <button type="submit" class="btn-remove">X</button>
-                            </form>
-                            <span class="btn-edit">
-                                <a href="/edit/<?= $customer['id'] ?>">Editar</a>
-                            </span>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-    <?php } ?>
-
-    <?php if ($uri == '/create' && $method == 'GET') { ?>
-        <div class="form-wrapper">
-            <form method="post" class="form">
-                <div>
-                    <label for="">Nome</label>
-                    <input name="name"></input>
-                </div>
-                <div>
-                    <label for="">Endereço</label>
-                    <input name="address"></input>
-                </div>
-                <div>
-                    <label for="">Cidade</label>
-                    <input name="city"></input>
-                </div>
-                <div>
-                    <label for="">Telefone</label>
-                    <input name="phone"></input>
-                </div>
-                <div></div>
-                <div class="btn-submit-wrapper">
-                    <button type="submit" class="btn-submit">Salvar</button>
-                </div>
-            </form>
-        </div>
-    <?php } ?>
-
-    <?php if (str_contains($uri, '/edit') && $method == 'GET') { ?>
-        <?php 
-            $customerId = explode('/', $uri)[2];
-            $customer = $connection->getById($customerId);    
-        ?>
-        <div class="form-wrapper">
-            <form method="post" class="form">
-                <div>
-                    <label for="">Nome</label>
-                    <input name="name" value="<?= $customer->name ?>"></input>
-                </div>
-                <div>
-                    <label for="">Endereço</label>
-                    <input name="address" value="<?= $customer->address ?>"></input>
-                </div>
-                <div>
-                    <label for="">Cidade</label>
-                    <input name="city" value="<?= $customer->city ?>"></input>
-                </div>
-                <div>
-                    <label for="">Telefone</label>
-                    <input name="phone" value="<?= $customer->phone ?>"></input>
-                </div>
-                <div></div>
-                <div class="btn-submit-wrapper">
-                    <button type="submit" class="btn-submit">Salvar</button>
-                </div>
-            </form>
-        </div>
-    <?php } ?>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 </html>
