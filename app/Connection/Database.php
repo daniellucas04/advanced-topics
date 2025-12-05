@@ -18,6 +18,7 @@ class Database {
         $this->username = $_ENV['DB_USERNAME'];
         $this->password = $_ENV['DB_PASSWORD'];
 
+        echo $this->host . " " . $this->dbName . " " . $this->username . " " . $this->password;
         try {
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->dbName};charset=utf8mb4", $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
